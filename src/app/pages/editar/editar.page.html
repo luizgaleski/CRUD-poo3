@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>editar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <form [formGroup] = "formEditar" (ngSubmit)="submitForm()">
+      <ion-item>
+        <ion-input placeholder="Título" formControlName="titulo" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Número Total de Episódios" 
+          formControlName="totalEp" type="number"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-select placeholder="Selecione os gêneros" [multiple]="true" formControlName="generos">
+          <ion-select-option 
+            *ngFor="let gender of genderList" 
+            value="{{gender}}">{{gender}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-select placeholder="Nota" formControlName="nota" okText="Ok">
+          <ion-select-option *ngFor="let nota of notas" value="{{nota}}">{{nota}}</ion-select-option>
+          </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Data de início</ion-label>
+        <ion-datetime-button datetime="datetime"></ion-datetime-button>
+          <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+              <ion-datetime formControlName="data" id="datetime" presentation="date"></ion-datetime>
+            </ng-template>
+          </ion-modal>
+      </ion-item>
+      <ion-button type="submit">
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </ion-button>
+    </form>
+  </ion-list>
+
+  <ion-button (click)="excluirAnime()">
+    <ion-icon name="trash"></ion-icon>
+  </ion-button>
+
+</ion-content>
