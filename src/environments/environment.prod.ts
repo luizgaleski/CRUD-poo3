@@ -12,5 +12,7 @@ export const environment = {
   }
 };
 
+
+
 /*ionic build
 firebase deploy*/

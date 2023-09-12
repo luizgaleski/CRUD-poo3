@@ -1,4 +1,4 @@
-export class Anime {
+export class Serie {
     private _id: any;
     private _titulo: string;
     private _generos: string[]; 

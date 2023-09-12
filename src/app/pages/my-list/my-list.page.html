@@ -20,21 +20,21 @@
     <h1 >Bem Vindo a sua lista!</h1>
   </ion-text>
 
-  <ion-searchbar (ionChange)="searchMyAnime( $event )"></ion-searchbar>
+  <ion-searchbar (ionChange)="searchMySerie( $event )"></ion-searchbar>
 
   <ion-list>
-    <ion-item *ngFor="let anime of meus_animes | filtro: searchItems">
+    <ion-item *ngFor="let serie of minhas_series | filtro: searchItems">
       <ion-label>
-        <ion-img [src]="anime.imageLink"></ion-img>
+        <ion-img [src]="serie.imageLink"></ion-img>
       </ion-label>
       <ion-label class="cnt">
-          <h2>{{anime.titulo}}</h2>
+          <h2>{{serie.titulo}}</h2>
           <h3>--Tags--</h3>
-          <ion-button *ngFor="let tags of anime.generos">{{tags}}</ion-button>
-          <h3>Assistidos: [{{anime.assistidosEp}}/{{anime.totalEp}}]</h3>
-          <h3>Nota: {{anime.nota}}</h3>
-          <h3>Início: {{anime.data.split('T')[0]}}</h3>
-          <ion-button (click)="irParaEdicao(anime)">
+          <ion-button *ngFor="let tags of serie.generos">{{tags}}</ion-button>
+          <h3>Assistidos: [{{serie.assistidosEp}}/{{serie.totalEp}}]</h3>
+          <h3>Nota: {{serie.nota}}</h3>
+          <h3>Início: {{serie.data.split('T')[0]}}</h3>
+          <ion-button (click)="irParaEdicao(serie)">
             <ion-icon name="pencil"></ion-icon>
           </ion-button>
       </ion-label>
@@ -43,7 +43,7 @@
 
   <ion-fab vertical="bottom" horizontal="left" slot="fixed">
     <ion-button expand="full" shape="round" (click)="irParaAdicionar()">
-      Novo Anime
+      Nova Serie
     </ion-button>
   </ion-fab>
 

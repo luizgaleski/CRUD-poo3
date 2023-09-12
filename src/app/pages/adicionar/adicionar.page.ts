@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
-import { AnimesFBService } from 'src/app/services/animes-fb.service';
+import { SeriesFBService } from 'src/app/services/series-fb.service';
 
 @Component({
   selector: 'app-busca',
@@ -13,12 +13,12 @@ import { AnimesFBService } from 'src/app/services/animes-fb.service';
 export class AdicionarPage implements OnInit {
   formAdicionar: FormGroup;
   submited: boolean = false;
-  genderList: string[] = ["Ação", "H-Word ( ͡° ͜ʖ ͡°)", "Robôs", "Romance", "Sci-Fi"];
+  genderList: string[] = ["Ação", "Terror", "Teen", "Drama", "Policiais"];
   notas: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   imagem: any;
 
   constructor(
-    private animesFBService: AnimesFBService,
+    private seriesFBService: SeriesFBService,
     private alertController: AlertController,
     private formBuilder: FormBuilder,
     private router: Router,
@@ -46,10 +46,10 @@ export class AdicionarPage implements OnInit {
     console.log("a")
     this.submited = true;
     if(!this.formAdicionar.valid){
-      this.presentAlert("AnimeteK", "Adicionar Error", "Campos inválidos");
+      this.presentAlert("Lista", "Adicionar Error", "Campos inválidos");
       return false;
     }else{
-      this.presentAlert("AnimeteK", "Adicionar", "O anime foi adicionado a sua lista!");
+      this.presentAlert("Lista", "Adicionar", "A série foi adicionada a sua lista!");
       this.adicionar();
     }
   }
@@ -63,16 +63,16 @@ export class AdicionarPage implements OnInit {
   }
   public adicionar(){
     this.showLoading("Aguarde", 10000);
-    this.animesFBService
+    this.seriesFBService
     .enviarImagem(this.imagem, this.formAdicionar.value)
     .then(()=>{
       this.loading.dismiss();
-      this.presentAlert("AnimeteK", "Sucesso", "Anime Adicionado!");
+      this.presentAlert("Lista", "Sucesso", "Série Adicionado!");
       this.router.navigate(["/my-list"]);
     })
     .catch((error)=>{
       this.loading.dismiss();
-      this.presentAlert("AnimeteK", "Erro", "Erro ao cadastrar!");
+      this.presentAlert("Lista", "Erro", "Erro ao adicionar!");
       console.log(error);
     })
 

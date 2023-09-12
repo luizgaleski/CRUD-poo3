@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Anime } from 'src/app/models/anime';
-import { AnimesFBService } from 'src/app/services/animes-fb.service';
+import { Serie } from 'src/app/models/serie';
+import { SeriesFBService } from 'src/app/services/series-fb.service';
 
 
 //suggestion e favorites vira apenas tags
@@ -12,22 +12,22 @@ import { AnimesFBService } from 'src/app/services/animes-fb.service';
   styleUrls: ['./my-list.page.scss'],
 })
 export class MyListPage {
-  meus_animes: Anime[];
+  minhas_series: Serie[];
   searchItems: string = "";
 
   constructor(
-    private animeFBService: AnimesFBService,
+    private serieFBService: SeriesFBService,
     private router: Router,
   ) {
-    this.carregarAnimes();
+    this.carregarSeries();
   }
-  carregarAnimes(){
-    this.animeFBService.getAnimes().subscribe(res => {
-      this.meus_animes = res.map(c => {
+  carregarSeries(){
+    this.serieFBService.getSeries().subscribe(res => {
+      this.minhas_series = res.map(c => {
         return {
           id: c.payload.doc.id,
-          ...c.payload.doc.data() as Anime,
-        } as Anime;
+          ...c.payload.doc.data() as Serie,
+        } as Serie;
       })
     });
   }
@@ -40,9 +40,9 @@ export class MyListPage {
     this.router.navigate(['/adicionar']);
   }
   
-  irParaEdicao(anime: Anime){
+  irParaEdicao(serie: Serie){
     this.router.navigateByUrl("/editar",
-      { state: {object: anime} }
+      { state: {object: serie} }
     )
   }
 

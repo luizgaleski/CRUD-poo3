@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { Anime } from 'src/app/models/anime';
-import { AnimesFBService } from 'src/app/services/animes-fb.service';
+import { Serie } from 'src/app/models/serie';
+import { SeriesFBService } from 'src/app/services/series-fb.service';
 
 @Component({
   selector: 'app-editar',
@@ -11,27 +11,27 @@ import { AnimesFBService } from 'src/app/services/animes-fb.service';
   styleUrls: ['./editar.page.scss'],
 })
 export class EditarPage implements OnInit {
-  anime: Anime;
+  serie: Serie;
   edicao: boolean = true;
   formEditar: FormGroup;
   isSubmitted: boolean = false;
   
   constructor(
     private router: Router,
-    private animeFBService: AnimesFBService,
+    private serieFBService: SeriesFBService,
     private alertController: AlertController,
     private formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
     const nav = this.router.getCurrentNavigation();
-    this.anime = nav.extras.state.object;
-    console.log(this.anime)
+    this.serie = nav.extras.state.object;
+    console.log(this.serie)
     this.formEditar = this.formBuilder.group({
-      titulo:[this.anime.titulo ,[Validators.required]],
-      generos:[this.anime.generos,[Validators.required]],
-      totalEp:[this.anime.totalEp,[Validators.required]],
-      assistidosEp:[this.anime.assistidosEp ,[Validators.required]]
+      titulo:[this.serie.titulo ,[Validators.required]],
+      generos:[this.serie.generos,[Validators.required]],
+      totalEp:[this.serie.totalEp,[Validators.required]],
+      assistidosEp:[this.serie.assistidosEp ,[Validators.required]]
     });
   }
 
@@ -55,15 +55,15 @@ export class EditarPage implements OnInit {
   }
 
   editar(){
-    this.animeFBService.editarAnime(this.formEditar.value, this.anime.id)
+    this.serieFBService. editarSerie(this.formEditar.value, this.serie.id)
     .then(()=>{
     
-      this.presentAlert("Agenda", "Sucesso", "Cliente Cadastrado!");
+      this.presentAlert("Lista", "Sucesso", "Série Cadastrada!");
       this.router.navigate(["/my-list"]);
     })
     .catch((error)=>{
      
-      this.presentAlert("Agenda", "Erro", "Erro ao cadastrar!");
+      this.presentAlert("Lista", "Erro", "Erro ao cadastrar!");
       console.log(error);
     })
     
@@ -71,18 +71,18 @@ export class EditarPage implements OnInit {
   }
 
   excluir(): void{
-    this.presentAlertConfirm("Agenda", "Excluir Contato",
-    "Você realmente deseja excluir o contato?");
+    this.presentAlertConfirm("Lista", "Excluir Série",
+    "Você realmente deseja excluir a série?");
   }
 
-excluirAnime(){
-  this.animeFBService.excluirAnime(this.anime)
+excluirSerie(){
+  this.serieFBService.excluirSerie(this.serie)
   .then(()=>{
-    this.presentAlert("Agenda", "Sucesso", "Contato excluído!");
+    this.presentAlert("Lista", "Sucesso", "Série excluída!");
     this.router.navigate(["/my-list"]);
   })
   .catch((error)=>{
-    this.presentAlert("Agenda", "Erro", "Erro ao excluir!");
+    this.presentAlert("Lista", "Erro", "Erro ao excluir!");
     console.log(error);
   })
   }
@@ -117,7 +117,7 @@ excluirAnime(){
           text:'Confirmar',
           role: 'confirm',
           handler: ()=>{
-          this.excluirAnime()
+          this.excluirSerie()
           }
         }
       ],

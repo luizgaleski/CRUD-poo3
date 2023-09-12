@@ -4,9 +4,7 @@ import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AngularFireModule} from '@angular/fire/compat'
-import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFirestoreModule} from '@angular/fire/compat/firestore';
-import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { environment } from 'src/environments/environment.prod';
 
 import { AppComponent } from './app.component';
